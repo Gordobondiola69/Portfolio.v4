@@ -91,30 +91,27 @@ a { color: inherit; }
 .intro { max-width: 33rem; margin: 1.5rem 0 0; font-size: clamp(1.05rem, 4.6vw, 1.25rem); line-height: 1.5; text-wrap: pretty; }
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-/* Red de conceptos: una galaxia pequeña y simple */
-.net {
-  position: relative; width: min(100%, 54rem); height: clamp(190px, 34vw, 280px);
-  margin: 1.25rem auto .5rem; touch-action: pan-y; perspective: 700px;
-  transform-style: preserve-3d;
-}
-.galaxy-plane { position: absolute; inset: 0; transform-style: preserve-3d; }
-.net canvas { transform-style: preserve-3d; }
+/* Red de conceptos */
+.net { position: relative; height: clamp(540px, 148vw, 620px); margin: 1.25rem 0 .5rem; touch-action: pan-y; }
+@media (min-width: 600px) { .net { height: 460px; } }
 .net canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 .node {
   position: absolute; left: 0; top: 0; z-index: 1;
-  width: auto; height: auto; padding: .12rem .2rem; white-space: nowrap; user-select: none;
-  -webkit-user-select: none; touch-action: pan-y; color: #FFFFFF; background: transparent;
-  font-family: var(--display); font-size: clamp(.62rem, 2.4vw, .88rem);
-  font-weight: 650; line-height: 1; letter-spacing: -.02em;
-  border: 0; border-radius: 999px; text-shadow: 0 0 7px rgba(255, 255, 255, .8);
-  box-shadow: none;
+  padding: .3em .85em; white-space: nowrap; user-select: none; -webkit-user-select: none; touch-action: pan-y;
+  font-family: var(--display); font-stretch: 85%; font-weight: 600; font-size: clamp(.95rem, 4.3vw, 1.25rem); line-height: 1.2;
+  color: #FFFFFF; background: #000000;
+  border: 1px solid rgba(255, 255, 255, .3); border-radius: 999px;
+  text-shadow: 0 0 8px rgba(255, 255, 255, .65), 0 0 22px rgba(255, 255, 255, .3);
+  box-shadow: 0 0 14px rgba(255, 255, 255, .1);
   will-change: transform;
-  transition: text-shadow .3s ease, opacity .3s ease;
+  transition: text-shadow .3s ease, box-shadow .3s ease, border-color .3s ease;
 }
-.node::after { content: ''; position: absolute; inset: -12px; border-radius: inherit; }
-.node.near { text-shadow: 0 0 8px #FFFFFF, 0 0 18px rgba(255, 255, 255, .8); }
+.node::after { content: ''; position: absolute; inset: -10px; border-radius: inherit; }   /* zona de toque más grande */
+.node.near { border-color: rgba(255, 255, 255, .65); text-shadow: 0 0 8px rgba(255, 255, 255, .85), 0 0 24px rgba(255, 255, 255, .5); box-shadow: 0 0 18px rgba(255, 255, 255, .25); }
 .node.hot {
-  z-index: 2; text-shadow: 0 0 6px #FFFFFF, 0 0 16px #FFFFFF, 0 0 30px rgba(255, 255, 255, .85);
+  z-index: 2; border-color: #FFFFFF;
+  text-shadow: 0 0 6px #FFFFFF, 0 0 16px rgba(255, 255, 255, .95), 0 0 38px rgba(255, 255, 255, .7);
+  box-shadow: 0 0 22px rgba(255, 255, 255, .6), 0 0 52px rgba(255, 255, 255, .28), inset 0 0 14px rgba(255, 255, 255, .18);
 }
 
 .fl { will-change: transform; }
@@ -175,19 +172,6 @@ a { color: inherit; }
   overflow-wrap: break-word; hyphens: auto;
 }
 .p-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; padding-top: 1rem; padding-bottom: 3rem; }
-.p-body.media-section-only { display: block; }
-.media-only { padding-top: 1rem; padding-bottom: 3rem; }
-.upcoming-wrap {
-  min-height: clamp(24rem, 58vh, 40rem); display: grid; place-items: center;
-  padding-top: 2rem; padding-bottom: 4rem; overflow: visible;
-}
-.upcoming {
-  display: inline-block; max-width: 100%; padding: .2em .35em;
-  font-family: var(--display); font-stretch: 75%; font-weight: 800;
-  font-size: clamp(4rem, 16vw, 11rem); line-height: .82; letter-spacing: -.05em;
-  color: var(--ink); text-align: center; text-wrap: balance; user-select: none;
-  text-shadow: 0 0 18px color-mix(in srgb, var(--accent-text) 45%, transparent);
-}
 .p-text, .p-media { min-width: 0; }
 .p-text { max-width: 34rem; }
 .lead { margin: 0 0 1.1rem; font-size: clamp(1.15rem, 5.2vw, 1.4rem); line-height: 1.35; text-wrap: balance; }
@@ -216,9 +200,8 @@ a { color: inherit; }
 }
 .track::-webkit-scrollbar { display: none; }
 .slide { flex: 0 0 min(78%, 21rem); scroll-snap-align: start; margin: 0; }
-.slide img, .slide video, .ph { display: block; width: 100%; aspect-ratio: var(--ratio, 4 / 5); object-fit: cover; border-radius: .4rem; }
+.slide img, .ph { display: block; width: 100%; aspect-ratio: var(--ratio, 4 / 5); object-fit: cover; border-radius: .4rem; }
 .slide img { cursor: zoom-in; background: var(--sticker); }
-.slide video { background: #111; }
 .ph {
   display: grid; place-items: center; text-align: center; padding: 1rem;
   color: var(--muted); font-size: .95rem; line-height: 1.3;
@@ -251,8 +234,7 @@ figcaption { margin-top: .45rem; color: var(--muted); font-size: .95rem; line-he
 .sticker:nth-child(3n + 1) { --r: -1.1deg; }
 .sticker:nth-child(3n + 2) { --r: .8deg; }
 .sticker:nth-child(3n) { --r: -.4deg; }
-.sticker img, .sticker video { display: block; width: 100%; height: auto; border-radius: .5rem; }
-.sticker img { cursor: zoom-in; }
+.sticker img { display: block; width: 100%; height: auto; border-radius: .5rem; cursor: zoom-in; }
 .sticker .ph { border-radius: .5rem; }
 .sticker figcaption { color: #565B86; padding: 0 .3rem .2rem; }
 
@@ -280,7 +262,7 @@ figcaption { margin-top: .45rem; color: var(--muted); font-size: .95rem; line-he
 .lb button svg { width: 1.2rem; height: 1.2rem; }
 
 @media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; scroll-behavior: auto !important; animation: none !important; }
+  * { transition: none !important; scroll-behavior: auto !important; }
 }
 </style>
 </head>
@@ -305,9 +287,10 @@ const CONTACT = {
   linkedin: 'https://www.linkedin.com/in/lucas-carey-36baa8289'
 };
 
-// Todos los recursos viven junto a este HTML. La ruta relativa funciona tanto
-// al abrir el archivo localmente como dentro de la preview.
-const PORTFOLIO_ASSET_ROOT = './';
+// En la preview se sirven desde el workspace; al abrir el HTML localmente se usa la carpeta de Windows.
+const GUSTITO_ASSET_ROOT = location.protocol === 'file:'
+  ? 'file:///C:/Users/Usuario/Downloads/Portfolio/'
+  : '/attached_assets/';
 
 // Fotos: cada item es { src, alt, caption }. src puede ser una ruta (ej: 'img/planeta-bordo-1.jpg') o un data URI.
 // Si media está vacío, se muestran ph recuadros de "falta foto".
@@ -315,9 +298,10 @@ const PROJECTS = [
   {
     slug: 'planeta-bordo', title: 'Planeta Bordó',
     line: 'Manejo de redes de cuenta periodística no oficial de Newman Rugby',
-    lead: 'Planeta Bordó es una cuenta de periodismo no oficial que creamos con mi hermano para publicar y comunicar noticias, datos y estadísticas de nuestro club.',
+    lead: 'Manejo las redes de una cuenta periodística no oficial de Newman Rugby.',
     body: [
-      'Está orientada a la comunidad de rugby de Newman. Como próximo paso de este proyecto, estamos desarrollando una app para que la gente pueda cargar predicciones de los partidos del plantel superior y sumar puntos compitiendo en una tabla anual.'
+      'Armo el contenido de la cuenta y la estrategia de cada partido, como la del clásico contra Champagnat. También llevé la temporada 2025 en planillas propias, con las estadísticas del equipo.',
+      'Ahora estoy armando una web para hinchas: cada fecha se predice el resultado de primera y hay un ranking anual. Acertar el ganador da 1 punto, y si además te quedás a 5 puntos o menos de la diferencia real, son 2.'
     ],
     links: [],
     layout: 'carousel', ratio: '4 / 5', ph: 0,
@@ -336,188 +320,83 @@ const PROJECTS = [
   {
     slug: 'gustito', title: 'Gustito',
     line: 'Posicionamiento de marca e identidad visual de emprendimiento repostero',
-    lead: 'Gustito es un emprendimiento de repostería que creamos con Lola, la cocinera. A ella siempre le gustó cocinar, especialmente cookies, entonces surgió la idea de vender sus producciones.',
+    lead: 'Campaña para Gustito, una repostería de barrio.',
     body: [
-      '¿Qué hicimos? Creamos una marca desde cero, le dimos una identidad visual inconfundible, con una mascota dibujada a mano, colores originales y tipografías propias de la marca. Estas son algunas piezas gráficas que se publicaron en las redes sociales.',
-      'Hoy en día Gustito es un emprendimiento activo, que sigue construyendo su marca alrededor de esta misma estética y con su distintiva mascota “Gorla la Jirafa”.'
+      'Proyecto integrador de Publicidad II en la Universidad de Palermo, hecho en dupla. Tomamos a Gustito como caso real: una marca chica que casi no se conoce en el barrio ni en redes.',
+      'Nos pusimos dos metas a tres meses: llegar a 1.000 seguidores entre Instagram y TikTok y sostener al menos $50.000 de ganancia por mes.',
+      'La campaña es “Tu Gustito Culposo”, con tono cercano y artesanal: bueno, bonito y barato, atención de barrio, promos y membresías. Hicimos el brief, buyer personas y mapa de empatía, y ahora estamos con el plan de medios.'
     ],
     links: [],
     layout: 'carousel', ratio: '4 / 5', media: [
-      { src: `${PORTFOLIO_ASSET_ROOT}27_1790083407559.png`, fallback: '27_1790083407559.png', alt: 'Box del Día de la Madre de Gustito, con ilustraciones de dos jirafas.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}28_1790083407560.png`, fallback: '28_1790083407560.png', alt: 'Promociones de Gustito: Box 1 Dulce Mañana y Box 2 Mimo para Mamá, con sus productos y precios.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}2_1790083407560.png`, fallback: '2_1790083407560.png', alt: 'Placa amarilla de identidad de Gustito con el texto “Tu Gustito Culposo”.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}3_1790083407561.png`, fallback: '3_1790083407561.png', alt: 'Presentación de Gorla, la mascota jirafa de Gustito, sobre fondo amarillo.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}7_1790083407562.png`, fallback: '7_1790083407562.png', alt: 'Placa de campaña de Gustito con los textos “Tu Gustito Culposo”, “Date un Gustito” y “Gustito”.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}10_1790083407563.png`, fallback: '10_1790083407563.png', alt: 'Pieza gráfica de Gustito con una ilustración de la mascota Gorla.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}17_1790083407564.png`, fallback: '17_1790083407564.png', alt: 'Pieza gráfica de la campaña Gustito.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}23_1790083407564.png`, fallback: '23_1790083407564.png', alt: 'Pieza gráfica de la campaña Gustito.' }
+      { src: `${GUSTITO_ASSET_ROOT}27_1790083407559.png`, fallback: '27_1790083407559.png', alt: 'Box del Día de la Madre de Gustito, con ilustraciones de dos jirafas.' },
+      { src: `${GUSTITO_ASSET_ROOT}28_1790083407560.png`, fallback: '28_1790083407560.png', alt: 'Promociones de Gustito: Box 1 Dulce Mañana y Box 2 Mimo para Mamá, con sus productos y precios.' },
+      { src: `${GUSTITO_ASSET_ROOT}2_1790083407560.png`, fallback: '2_1790083407560.png', alt: 'Placa amarilla de identidad de Gustito con el texto “Tu Gustito Culposo”.' },
+      { src: `${GUSTITO_ASSET_ROOT}3_1790083407561.png`, fallback: '3_1790083407561.png', alt: 'Presentación de Gorla, la mascota jirafa de Gustito, sobre fondo amarillo.' },
+      { src: `${GUSTITO_ASSET_ROOT}7_1790083407562.png`, fallback: '7_1790083407562.png', alt: 'Placa de campaña de Gustito con los textos “Tu Gustito Culposo”, “Date un Gustito” y “Gustito”.' },
+      { src: `${GUSTITO_ASSET_ROOT}10_1790083407563.png`, fallback: '10_1790083407563.png', alt: 'Pieza gráfica de Gustito con una ilustración de la mascota Gorla.' },
+      { src: `${GUSTITO_ASSET_ROOT}17_1790083407564.png`, fallback: '17_1790083407564.png', alt: 'Pieza gráfica de la campaña Gustito.' },
+      { src: `${GUSTITO_ASSET_ROOT}23_1790083407564.png`, fallback: '23_1790083407564.png', alt: 'Pieza gráfica de la campaña Gustito.' }
     ], ph: 0,
     bg: 'c', aLight: '#B58600', aDark: '#F2C94C', onDark: '#14173F'
   },
   {
     slug: 'grabados-carey', title: 'Grabados Carey',
     line: 'Emprendimiento personal de grabados láser personalizados',
-    lead: 'Grabados Carey es un emprendimiento que creamos con mi primo. La idea surgió en un asado familiar, donde nos enteramos de que mi tío tenía una máquina de grabado láser. Desde ese día, empezamos a comprar botellas térmicas, aprendimos a dominar la máquina y sus configuraciones, diseñamos los primeros grabados y tuvimos nuestras primeras ventas.',
+    lead: 'Con mi primo llevamos un emprendimiento de grabado láser.',
     body: [
-      'Hoy en día Carey Grabados es una marca que vende por Instagram a consumidores individuales y marcas que compran productos en cantidad con su logo grabado. Stockeamos y vendemos desde mates y termos hasta tablas de madera. Todo 100% personalizado.'
+      'Grabamos termos, mates y botellas personalizados. Hasta ahora vendimos botellas a chicos y mamás, mates de regalo y 40 mates con marca a una inmobiliaria.',
+      'Lo estoy ordenando en dos frentes: consumidor final, para regalos, y empresas, para merchandising corporativo. Armé el FODA, buyer personas, mapas de empatía, precios para empresas y un calendario de contenido para redes.'
     ],
     links: [],
-    layout: 'collage', media: [
-      { src: `${PORTFOLIO_ASSET_ROOT}image_1790084605604.png`, fallback: 'image_1790084605604.png', alt: 'Mate de madera personalizado con la frase “No es por presumir, pero como mi mamá no hay otra” y un corazón.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}image_1790084657157.png`, fallback: 'image_1790084657157.png', alt: 'Mate de madera grabado con las iniciales MR, fotografiado en una tribuna de polo.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}image_1790084676370.png`, fallback: 'image_1790084676370.png', alt: 'Colección de mates de madera personalizados sobre una mesa.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}image_1790084698705.png`, fallback: 'image_1790084698705.png', alt: 'Termo y mate personalizados durante una navegación frente a Buenos Aires.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}image_1790084715422.png`, fallback: 'image_1790084715422.png', alt: 'Caja con mates personalizados listos para entregar y un vaso grabado.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}image_1790084736957.png`, fallback: 'image_1790084736957.png', alt: 'Mate de madera personalizado con un símbolo de infinito y un sol.' }
-    ], ph: 0,
+    layout: 'collage', media: [], ph: 6, phLabel: 'Foto de un producto',
     bg: 'd', aLight: '#6B7280', aDark: '#A3A8B8', onDark: '#0E1130'
   },
   {
     slug: 'proyectos-universitarios', title: 'Proyectos Universitarios',
-    line: 'Campaña La Aurora',
-    lead: '',
+    line: 'Campañas, proyectos y más, hechos para la Universidad de Palermo o FADU',
+    lead: 'Proyectos de la facultad, uno debajo del otro.',
     body: [],
+    sections: [
+      {
+        title: 'Quilmes, de 2006 a 2026',
+        body: [
+          'Investigación sobre cómo cambió la narrativa publicitaria de Quilmes entre dos Mundiales. Comparo la publicidad del Mundial de Alemania 2006, pensada para TV, con la del Mundial 2026, pensada para el ecosistema digital.',
+          'Uso análisis de contenido cualitativo con los marcos teóricos de Atarama Rojas y otros (2018) y de Trepat (2025). Armé una encuesta, tablas comparativas y el guion del pitch.'
+        ],
+        layout: 'carousel', ratio: '4 / 3', media: [], ph: 4, phLabel: 'Tabla, gráfico o diapositiva'
+      },
+      {
+        title: 'Escuadrón Fénix',
+        body: [
+          'Proyecto de escritura creativa para Comunicación Oral y Escrita, sobre el Escuadrón Fénix y la Guerra de Malvinas, con el marco borgeano de Pierre Menard.',
+          'Incluye un fotolibro y un podcast con una entrevista.'
+        ],
+        layout: 'carousel', ratio: '4 / 5', media: [], ph: 4, phLabel: 'Página del fotolibro'
+      }
+    ],
     links: [],
-    comingSoon: true,
-    sections: [{
-      title: 'Campaña La Aurora',
-      body: [],
-      layout: 'carousel', ratio: '16 / 9', ph: 0,
-      media: [
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-01.jpg`, alt: 'Portada de la presentación Campaña La Aurora.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-02.jpg`, alt: 'Identidad visual de Estancia La Aurora y fotografía del lugar.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-03.jpg`, alt: 'Presentación de la marca, con mapa y descripción de Estancia La Aurora.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-04.jpg`, alt: 'Análisis de la situación de la marca con gráficos.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-05.jpg`, alt: 'Gráfico de etapas de la marca a lo largo del tiempo.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-06.jpg`, alt: 'Oportunidad de comunicación y plataformas digitales.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-07.jpg`, alt: 'Buyer persona de la campaña.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-08.jpg`, alt: 'Experiencia de vivir el campo, con fotografías de la propuesta.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-09.jpg`, alt: 'Recorrido de la campaña y plataformas de compra.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-10.jpg`, alt: 'Objetivos publicitarios de la campaña.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-11.jpg`, alt: 'Ejemplos visuales de la campaña Viví el campo.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-12.jpg`, alt: 'Ejemplos audiovisuales de la campaña.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-13.jpg`, alt: 'Aplicaciones de la campaña en piezas digitales y publicaciones.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-14.jpg`, alt: 'Elementos de la identidad visual de Estancia La Aurora.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-15.jpg`, alt: 'Presupuesto estimado de la campaña.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}la-aurora-16.jpg`, alt: 'Cierre de la presentación con el logotipo de Estancia La Aurora.' }
-      ]
-    }, {
-      title: 'Proyecto RONDA',
-      body: [],
-      layout: 'carousel', ratio: '16 / 9', ph: 0,
-      media: [
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-01.jpg`, alt: 'Diapositiva 1 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-02.jpg`, alt: 'Diapositiva 2 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-03.jpg`, alt: 'Diapositiva 3 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-04.jpg`, alt: 'Diapositiva 4 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-05.jpg`, alt: 'Diapositiva 5 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-06.jpg`, alt: 'Diapositiva 6 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-07.jpg`, alt: 'Diapositiva 7 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-08.jpg`, alt: 'Diapositiva 8 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-09.jpg`, alt: 'Diapositiva 9 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-10.jpg`, alt: 'Diapositiva 10 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-11.jpg`, alt: 'Diapositiva 11 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-12.jpg`, alt: 'Diapositiva 12 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-13.jpg`, alt: 'Diapositiva 13 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-14.jpg`, alt: 'Diapositiva 14 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-15.jpg`, alt: 'Diapositiva 15 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-16.jpg`, alt: 'Diapositiva 16 de Proyecto RONDA.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}ronda-17.jpg`, alt: 'Diapositiva 17 de Proyecto RONDA.' }
-      ]
-    }, {
-      title: 'Campaña PIPO',
-      body: [],
-      layout: 'carousel', ratio: '16 / 9', ph: 0,
-      media: [
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-01.jpg`, alt: 'Diapositiva 1 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-02.jpg`, alt: 'Diapositiva 2 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-03.jpg`, alt: 'Diapositiva 3 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-04.jpg`, alt: 'Diapositiva 4 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-05.jpg`, alt: 'Diapositiva 5 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-06.jpg`, alt: 'Diapositiva 6 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-07.jpg`, alt: 'Diapositiva 7 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-08.jpg`, alt: 'Diapositiva 8 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-09.jpg`, alt: 'Diapositiva 9 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-10.jpg`, alt: 'Diapositiva 10 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-11.jpg`, alt: 'Diapositiva 11 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-12.jpg`, alt: 'Diapositiva 12 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-13.jpg`, alt: 'Diapositiva 13 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-14.jpg`, alt: 'Diapositiva 14 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-15.jpg`, alt: 'Diapositiva 15 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-16.jpg`, alt: 'Diapositiva 16 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-17.jpg`, alt: 'Diapositiva 17 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-18.jpg`, alt: 'Diapositiva 18 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-19.jpg`, alt: 'Diapositiva 19 de Campaña PIPO.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}pipo-20.jpg`, alt: 'Diapositiva 20 de Campaña PIPO.' }
-      ]
-    }, {
-      title: 'Análisis Quilmes',
-      body: [],
-      layout: 'carousel', ratio: '16 / 9', ph: 0,
-      media: [
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-01.jpg`, alt: 'Diapositiva 1 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-02.jpg`, alt: 'Diapositiva 2 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-03.jpg`, alt: 'Diapositiva 3 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-04.jpg`, alt: 'Diapositiva 4 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-05.jpg`, alt: 'Diapositiva 5 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-06.jpg`, alt: 'Diapositiva 6 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-07.jpg`, alt: 'Diapositiva 7 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-08.jpg`, alt: 'Diapositiva 8 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-09.jpg`, alt: 'Diapositiva 9 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-10.jpg`, alt: 'Diapositiva 10 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-11.jpg`, alt: 'Diapositiva 11 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-12.jpg`, alt: 'Diapositiva 12 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-13.jpg`, alt: 'Diapositiva 13 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-14.jpg`, alt: 'Diapositiva 14 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-15.jpg`, alt: 'Diapositiva 15 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-16.jpg`, alt: 'Diapositiva 16 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-17.jpg`, alt: 'Diapositiva 17 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-18.jpg`, alt: 'Diapositiva 18 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-19.jpg`, alt: 'Diapositiva 19 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-20.jpg`, alt: 'Diapositiva 20 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-21.jpg`, alt: 'Diapositiva 21 de Análisis Quilmes.' },
-        { src: `${PORTFOLIO_ASSET_ROOT}quilmes-22.jpg`, alt: 'Diapositiva 22 de Análisis Quilmes.' }
-      ]
-    }],
-    comingSoonText: 'Proximamente mas...',
-    media: [], ph: 0,
     bg: 'a', aLight: '#1E88C7', aDark: '#7CC8F5', onDark: '#14173F'
   },
   {
     slug: 'audiovisual', title: 'Audiovisual',
     line: 'Afiches, videos, piezas digitales y más',
-    lead: '',
-    body: [],
+    lead: 'Afiches, videos y piezas digitales.',
+    body: [
+      'Tres afiches de recital de Tan Biónica con un motivo geométrico de ojo, hechos en SVG.',
+      'Y una propuesta de mascota para el Mundial 2026 basada en la mariposa monarca.'
+    ],
     links: [],
-    noText: true,
-    layout: 'collage', media: [
-      { src: `${PORTFOLIO_ASSET_ROOT}image_1790694072726.png`, alt: 'Personajes ilustrados de una campaña de esquí: animales con ropa y equipos de nieve.' },
-      { type: 'video', src: `${PORTFOLIO_ASSET_ROOT}WhatsApp_Video_2026-09-22_at_11.21.39_1790087315656.mp4`, alt: 'Video corto de una pieza audiovisual.' },
-      { type: 'video', src: `${PORTFOLIO_ASSET_ROOT}WhatsApp_Video_2026-09-22_at_11.22.22_(1)_1790087317972.mp4`, alt: 'Video corto de una pieza audiovisual.' },
-      { type: 'video', src: `${PORTFOLIO_ASSET_ROOT}WhatsApp_Video_2026-09-22_at_11.22.22_1790087320184.mp4`, alt: 'Video corto de una pieza audiovisual.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}image_1790087353416.png`, alt: 'Personaje guerrero de fantasía, de piel verde y armado con espada y escudo.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}image_1790087355333.png`, alt: 'Personaje de fantasía con cuerpo de piedra y vegetación, rodeado de hongos.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}image_1790087374020.png`, alt: 'Personaje demoníaco de fantasía con cuernos, espada y cola.' },
-      { type: 'video', src: `${PORTFOLIO_ASSET_ROOT}WhatsApp_Video_2026-09-22_at_11.22.24_1790087401197.mp4`, alt: 'Video vertical de una pieza audiovisual.' },
-      { type: 'video', src: `${PORTFOLIO_ASSET_ROOT}WhatsApp_Video_2026-09-22_at_11.22.24_(2)_1790087436500.mp4`, alt: 'Video vertical de una pieza audiovisual.' },
-      { type: 'video', src: `${PORTFOLIO_ASSET_ROOT}WhatsApp_Video_2026-09-22_at_11.22.25_1790087461377.mp4`, alt: 'Video vertical de una pieza audiovisual.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}image_1790087473388.png`, alt: 'Silueta de una araña frente a un atardecer.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}image_1790087484580.png`, alt: 'Ilustración de un león con gorro de Navidad sosteniendo una copa.' },
-      { type: 'video', src: `${PORTFOLIO_ASSET_ROOT}uri_ifs___V_1MMmzF42zgQ6dRqopqZFub9pu4l4kpOOOiFDSW6e1TQ_1790087572750.mp4`, alt: 'Video vertical de una pieza audiovisual.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}PUBLICACIONES_PLANETA_BORDO_1790087641589.png`, alt: 'Pieza gráfica de Planeta Bordó con el título “Scooby” y una composición deportiva en bordó y amarillo.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}image_1790087659579.png`, alt: 'Maqueta arquitectónica de edificios blancos con árboles y espacios comunes.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}image_1790087672010.png`, alt: 'Maqueta arquitectónica de edificios integrados a un parque arbolado.' },
-      { src: `${PORTFOLIO_ASSET_ROOT}image_1790087687414.png`, alt: 'Composición de primeros planos de ojos con distintos colores y nombres.' }
-    ], ph: 0,
+    layout: 'collage', media: [], ph: 6, phLabel: 'Pieza gráfica',
     bg: 'c'
   },
   {
     slug: 'mi-cuaderno', title: 'Mi cuaderno',
     line: 'Dibujos en lapicera, tinta y lápiz.',
-    lead: '',
-    body: [],
+    lead: 'Dibujo en lapicera, tinta y lápiz.',
+    body: [
+      'Criaturas, robots, hongos, personajes y mundos inventados. Son páginas de mis cuadernos; los fondos de esta web también salen de ahí.'
+    ],
     links: [],
-    noText: true,
     layout: 'collage',
     media: [
       { src: 'i01a', alt: "Gatos en tinta negra: una remera con un gato, cabezas de gato y un gato de pie con rayas." },
@@ -573,13 +452,18 @@ const PROJECTS = [
    Las conexiones se arman solas: cada nodo se une a sus 3 vecinos más cercanos y la red siempre queda unida
    ============================================================ */
 const NET_NODES = [
-  { t: 'Creatividad', m: [50, 50], w: [50, 50], f: 1.1 },
-  { t: 'Diseño',      m: [31, 34], w: [29, 35] },
-  { t: 'IA',          m: [69, 35], w: [71, 34] },
-  { t: 'Marketing',   m: [25, 54], w: [24, 53] },
-  { t: 'Publicidad',  m: [76, 53], w: [76, 54] },
-  { t: 'Tecnología',  m: [38, 70], w: [37, 68] },
-  { t: 'Curiosidad',  m: [63, 70], w: [64, 69] }
+  { t: 'Publicidad',   m: [27, 6],  w: [18, 10] },
+  { t: 'Redes',        m: [75, 6],  w: [82, 12] },
+  { t: 'Marketing',    m: [50, 18], w: [50, 7] },
+  { t: 'Comunicación', m: [25, 31], w: [14, 35], f: .95 },
+  { t: 'IA',           m: [77, 31], w: [86, 36] },
+  { t: 'Creatividad',  m: [50, 44], w: [50, 32], f: 1.15 },
+  { t: 'Diseño',       m: [22, 57], w: [20, 60] },
+  { t: 'Audiovisual',  m: [76, 57], w: [82, 62] },
+  { t: 'Curiosidad',   m: [49, 69], w: [52, 58] },
+  { t: 'Personajes',   m: [25, 81], w: [16, 86] },
+  { t: 'Edición',      m: [76, 81], w: [84, 88] },
+  { t: 'Emprender',    m: [50, 93], w: [50, 84] }
 ];
 
 const INTRO = 'Estudio Publicidad en la Universidad de Palermo y vivo en Buenos Aires. Manejo redes, tengo un emprendimiento de grabado láser y dibujo en cuadernos. Busco pasantías y trabajos freelance en marketing y comunicación.';
@@ -641,9 +525,9 @@ function homeView() {
     <section class="wrap hero">
       <h1 class="name" aria-label="Lucas">${[...'Lucas'].map(ch => `<span class="fl ltr" aria-hidden="true">${ch}</span>`).join('')}</h1>
       <p class="sr-only">${INTRO}</p>
-       <div class="net" id="net" role="img" aria-label="Galaxia de conceptos: ${NET_NODES.map(n => n.t).join(', ')}">
-         <div class="galaxy-plane"><canvas aria-hidden="true"></canvas></div>
-         ${NET_NODES.map(n => `<span class="node" aria-hidden="true"${n.f ? ` style="font-size:${n.f}em"` : ''}>${n.t}</span>`).join('')}
+      <div class="net" id="net" role="img" aria-label="Red de conceptos: ${NET_NODES.map(n => n.t).join(', ')}">
+        <canvas aria-hidden="true"></canvas>
+        ${NET_NODES.map(n => `<span class="node" aria-hidden="true" style="font-size:${n.f || 1}em">${n.t}</span>`).join('')}
       </div>
     </section>
     <nav class="wrap" aria-label="Proyectos">
@@ -660,10 +544,6 @@ function homeView() {
 
 function mediaHTML(p) {
   let items = (p.media || []).map(m => ({ ...m, src: PG[m.src] || ILU[m.src] || PBI[m.src] || m.src }));
-  if (p.slug === 'mi-cuaderno') {
-    items.reverse();
-    items = items.filter((_, i) => ![0, 2, 3].includes(i));
-  }
   const isCollage = p.layout === 'collage';
   if (!items.length && p.ph) {
     const ratios = ['4 / 5', '1 / 1', '3 / 4', '4 / 3', '4 / 5', '1 / 1'];
@@ -672,14 +552,12 @@ function mediaHTML(p) {
   const fig = (m, cls) => {
     if (m.ph) return `<figure class="${cls}"><div class="ph" style="${m.ratio ? `--ratio:${m.ratio}` : ''}">${p.phLabel || 'Falta foto'}<br>(acá va)</div></figure>`;
     const fallback = m.fallback ? ` data-fallback="${m.fallback}" onerror="this.onerror=null;this.src=this.dataset.fallback"` : '';
-    const isVideo = m.type === 'video' || /\.mp4(?:$|[?#])/i.test(m.src || '');
-    if (isVideo) return `<figure class="${cls}"><video src="${m.src}" aria-label="${(m.alt || '').replace(/"/g, '&quot;')}" controls preload="metadata" playsinline></video>${m.caption ? `<figcaption>${m.caption}</figcaption>` : ''}</figure>`;
     return `<figure class="${cls}"><img src="${m.src}" alt="${(m.alt || '').replace(/"/g, '&quot;')}" loading="lazy" data-zoom${fallback}>${m.caption ? `<figcaption>${m.caption}</figcaption>` : ''}</figure>`;
   };
   if (isCollage) return `<div class="collage${p.spreads ? ' spread-grid' : ''}">${items.map(m => fig(m, 'sticker')).join('')}</div>`;
   return `
     <div class="carousel" role="region" aria-roledescription="carrusel" aria-label="Contenido de ${p.title}">
-       <div class="track" tabindex="0" style="--ratio:${p.ratio || '4 / 5'}">${items.map(m => fig(m, 'slide')).join('')}</div>
+      <div class="track" tabindex="0" style="--ratio:${p.ratio || '4 / 5'}">${items.map(m => fig(m, 'slide')).join('')}</div>
       <div class="ctrl">
         <button type="button" data-dir="-1" aria-label="Anterior">${ICON_PREV}</button>
         <button type="button" data-dir="1" aria-label="Siguiente">${ICON_NEXT}</button>
@@ -694,21 +572,16 @@ function projectView(p, i) {
   const style = `${p.aLight ? `--a-light:${p.aLight};` : ''}${p.aDark ? `--a-dark:${p.aDark};` : ''}`;
   const links = l => l && l.length ? `<div class="p-links">${l.map(x => `<a href="${x.href}" target="_blank" rel="noopener">${x.label}</a>`).join('')}</div>` : '';
   const main = p.sections
-    ? `${p.lead ? `<div class="wrap p-intro"><p class="lead">${p.lead}</p></div>` : ''}
+    ? `<div class="wrap p-intro"><p class="lead">${p.lead}</p></div>
        ${p.sections.map(sc => `
-         <section class="wrap p-body sec${sc.body?.length || sc.links?.length ? '' : ' media-section-only'}" aria-label="${sc.title}">
-           ${sc.body?.length || sc.links?.length ? `<div class="p-text">
+        <section class="wrap p-body sec" aria-label="${sc.title}">
+          <div class="p-text">
             <h2 class="sec-title">${sc.title}</h2>
             ${sc.body.map(t => `<p>${t}</p>`).join('')}
             ${links(sc.links)}
-           </div>` : `<h2 class="sec-title">${sc.title}</h2>`}
-           <div class="p-media">${mediaHTML({ ...sc, title: sc.title })}</div>
-         </section>`).join('')}
-       ${p.comingSoon ? `<div class="wrap upcoming-wrap"><div class="upcoming fl box" aria-label="${p.comingSoonText}">${p.comingSoonText}</div></div>` : ''}`
-    : p.noText
-    ? `<div class="wrap media-only">${mediaHTML(p)}</div>`
-     : p.comingSoon
-     ? `<div class="wrap upcoming-wrap"><div class="upcoming fl box" aria-label="Próximamente">Próximamente</div></div>`
+          </div>
+          <div class="p-media">${mediaHTML(sc)}</div>
+        </section>`).join('')}`
     : `<div class="wrap p-body">
         <div class="p-text">
           <p class="lead">${p.lead}</p>
@@ -937,10 +810,17 @@ const network = (() => {
     edges.forEach(e => {
       const a = e.a, b = e.b, k = e.lit;
       ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
-      ctx.strokeStyle = `rgba(255,255,255,${(.38 + .12 * k).toFixed(3)})`;
-      ctx.lineWidth = .7;
+      ctx.strokeStyle = `rgba(255,255,255,${(.26 + .6 * k).toFixed(3)})`;
+      ctx.lineWidth = 1 + .7 * k;
+      ctx.shadowColor = 'rgba(255,255,255,.9)'; ctx.shadowBlur = 3 + 9 * k;
       ctx.stroke();
+      if (e.pulse !== null) {                                  // pulso de luz viajando por la conexión
+        const p = e.pulse, px = a.x + (b.x - a.x) * p, py = a.y + (b.y - a.y) * p;
+        ctx.beginPath(); ctx.arc(px, py, 1.6 + 1.4 * k, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,255,255,.95)'; ctx.shadowBlur = 8 + 8 * k; ctx.fill();
+      }
     });
+    ctx.shadowBlur = 0;
   }
 
   function frame(now) {
@@ -984,6 +864,11 @@ const network = (() => {
     edges.forEach((e, i) => {
       const hot = e.a.hot || e.b.hot ? 1 : 0;
       e.lit += (hot - e.lit) * Math.min(1, dt * 8);
+      if (e.pulse === null) { if (e.delay > 0) e.delay -= dt; else e.pulse = 0; }
+      else {
+        e.pulse += dt * e.speed * (1 + 1.6 * e.lit);
+        if (e.pulse >= 1) { e.pulse = null; e.delay = 1.5 + ((i * 1.3) % 5); }
+      }
     });
     draw();
   }
@@ -1039,7 +924,7 @@ function route() {
     setBg(p.bg);
     document.body.dataset.view = 'project';
     document.title = `${p.title} — Lucas`;
-     floaty.init(app);
+    floaty.stop();
     network.stop();
     initCarousels(app);
   } else {
